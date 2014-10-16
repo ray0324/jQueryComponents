@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nav-slider</title>
+</head>
+<body>
+<!-- STYLE -->
+<style>
+    *{margin:0; padding:0; list-style:none; text-decoration:none;color:black;}
+    .nav-list ul {height: 48px;line-height: 48px;}
+    .nav-list ul li {float: left;padding: 0 10px;}
+    .nav-list ul li a {font-weight: 500;display: block; float: left;height: 48px;}
+    .nav-list ul li a:hover {text-decoration: none;color: #e43c18;}
+    .nav-list ul li.active a {color: #e43c18;}
+    .nav-list .currrent {position: relative;height: 2px;}
+    .nav-list .currrent .cur {position: absolute;height: 2px;width: 0; background: #e43c18;}
+</style>
+<!-- /STYLE -->
+<!-- HTML -->
+<div class="nav-list">
+    <ul>
+        <li class="active"><a href="#">ITEM1</a></li>
+        <li><a href="#">ITEM2</a></li>
+        <li><a href="#">ITEM3</a></li>
+        <li><a href="#">ITEM4</a></li>
+        <li><a href="#">ITEM5</a></li>
+    </ul>
+    <div class="currrent"><div class="cur"></div></div>
+</div>
+<div class="nav-list">
+    <ul>
+        <li><a href="#">item1</a></li>
+        <li><a href="#">item2</a></li>
+        <li><a href="#">item3</a></li>
+        <li class="active"><a href="#">item4</a></li>
+        <li><a href="#">item5</a></li>
+    </ul>
+    <div class="currrent"><div class="cur"></div></div>
+</div>
+<!-- HTML -->
+
+<script type="text/javascript" src="jquery-1.11.1.js"></script>
+<script type="text/javascript" src="jquery.navslider.js"></script>
+<script type="text/javascript">
+    //调用
+    $(document).ready(function(){
+        $('.nav-list').autoFocus();
+    })
+</script>
+</body>
+</html>
