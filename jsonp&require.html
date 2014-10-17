@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+<body>
+
+<script>
+	function require(src,callback){
+		var head = document.getElementsByTagName("head")[0];
+		var script = document.createElement('script');
+		script.setAttribute("type", "text/javascript");
+		script.setAttribute("src", src);
+		script.setAttribute("async", true);  
+        script.setAttribute("defer", true); 
+		head.appendChild(script);
+        if (document.all) {  
+            script.onreadystatechange = function() {  
+                var state = this.readyState;  
+                if (state === 'loaded' || state === 'complete') {
+                    callback();  
+                }  
+            }  
+        } else {  
+            //firefox, chrome  
+            script.onload = function() {  
+                callback();  
+            }  
+        }
+	}
+
+	//getJson
+	function getJson(src,callback){
+			var jsonp = src.split('callback=')[1].split('&')[0];
+			window[jsonp] = callback;
+			var head = document.getElementsByTagName("head")[0];
+			var script = document.createElement('script');
+			script.setAttribute("type", "text/javascript");
+			script.setAttribute("src", src);
+			script.setAttribute("async", true);  
+	        script.setAttribute("defer", true); 
+			head.appendChild(script);
+	}
+
+
+//http://libs.baidu.com/jquery/1.9.0/jquery.js	
+//http://localhost/bdbvip/api.php?callback=func
+
+
+
+	function loadjQuery(){
+		require('http://libs.baidu.com/jquery/1.9.0/jquery.js',function(){
+				$('body').css('background','red');
+		});
+		getJson('http://localhost/bdbvip/api.php?callback=func1',function(data){
+				console.log(data);
+				console.log(1);
+			});		
+	}
+</script>
+<button onclick="loadjQuery()">点击加载jquery如果页面变成红色 则说明加载了jquery，因为这是调用jquery的方法操作的</button>
+
+</body>
+</html>
