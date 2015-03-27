@@ -1,9 +1,9 @@
 /* 
-* @Author: RAY (ray0324@fomxial.com)
-* @Date:   2014-09-03 20:47:03
-* @Last Modified by:   RAY
-* @Last Modified time: 2014-09-09 15:50:43
-*/
+ * @Author: RAY (ray0324@fomxial.com)
+ * @Date:   2014-09-03 20:47:03
+ * @Last Modified by:   RAY
+ * @Last Modified time: 2015-03-27 09:47:35
+ */
 (function($) {
 
     'use strict';
@@ -20,7 +20,7 @@
     }
 
     //version
-    Carousel.VERSION = 'V0.1';
+    Carousel.VERSION = 'V0.2';
 
     //initizalized
     Carousel.prototype.init = function() {
@@ -31,35 +31,69 @@
     //prev
     Carousel.prototype.prev = function(current) {
         var self = this;
-        var currentFrame = self.$li.eq(current||self.indicator);
+        var currentFrame = self.$li.eq(current || self.indicator);
         this.indicator--;
         if (this.indicator < 0) {
             this.indicator = this.totalLength - 1;
         }
         var prevFrame = self.$li.eq(self.indicator);
 
-        self.$li.removeClass('next');
-        prevFrame.addClass('prev').stop(true).animate({left:0},400).siblings().removeClass('prev').css('left','');
-        currentFrame.addClass('active').stop(true).animate({left:"100%"},400).siblings().removeClass('active');
-        self.$nav.eq(self.indicator).addClass('active').siblings().removeClass('active'); 
+        self.$li
+        	.removeClass('next');
+        prevFrame
+	        .addClass('prev')
+	        .stop(true).animate({left: 0}, 400)
+	        .siblings().removeClass('prev')
+	        .css('left', '');
+
+        currentFrame
+	        .addClass('active')
+	        .stop(true)
+	        .animate({left: "100%"}, 400)
+	        .siblings()
+	        .removeClass('active');
+
+        self.$nav
+	        .eq(self.indicator)
+	        .addClass('active')
+	        .siblings()
+	        .removeClass('active');
     }
 
     //next
     Carousel.prototype.next = function(current) {
         var self = this;
 
-        var currentFrame = typeof current == 'undefined'? self.$li.eq(self.indicator):self.$li.eq(current);
+        var currentFrame = typeof current == 'undefined' ? self.$li.eq(self.indicator) : self.$li.eq(current);
         //next Frame        
-        self.indicator++;  
+        self.indicator++;
         if (self.indicator > self.totalLength - 1) {
             self.indicator = 0;
         }
         var nextFrame = self.$li.eq(self.indicator);
 
         self.$li.removeClass('prev');
-        nextFrame.addClass('next').stop(true).animate({left:0},400).siblings().removeClass('next').css('left','');
-        currentFrame.addClass('active').stop(true).animate({left:"-100%"},400).siblings().removeClass('active');
-        self.$nav.eq(self.indicator).addClass('active').siblings().removeClass('active');       
+        nextFrame
+            .addClass('next')
+            .css('left', '100%')
+            .stop(true)
+            .animate({left: 0}, 400)
+            .siblings()
+            .removeClass('next');
+
+        currentFrame
+            .addClass('active')
+            .stop(true)
+            .css('left', '')
+            .animate({left: "-100%"}, 400)
+            .siblings()
+            .removeClass('active');
+
+        self.$nav
+        	.eq(self.indicator)
+	        .addClass('active')
+	        .siblings()
+	        .removeClass('active');
     }
 
     //cycle
@@ -81,7 +115,7 @@
         //navigator point Event
         this.$nav.on('mouseover', function() {
             self.pause();
-            var current =  self.indicator; //record the current
+            var current = self.indicator; //record the current
             if (self.indicator > $(this).index()) {
                 self.indicator = $(this).index() + 1;
                 self.prev(current);
