@@ -14,7 +14,7 @@
         this.indicator = 0;
         this.interval = null;
         this.$li = $element.children('.s-body').find('li');
-        this.$nav = $element.children('.s-nav').find('span');
+        this.$nav = $element.children('.s-nav').find('li');
         this.totalLength = this.$li.size(); //item length
         this.init();
     }
@@ -42,13 +42,13 @@
         	.removeClass('next');
         prevFrame
 	        .addClass('prev')
-	        .stop(true).animate({left: 0}, 400)
+	        .stop(true,true).animate({left: 0}, 400)
 	        .siblings().removeClass('prev')
 	        .css('left', '');
 
         currentFrame
 	        .addClass('active')
-	        .stop(true)
+	        .stop(true,true)
 	        .animate({left: "100%"}, 400)
 	        .siblings()
 	        .removeClass('active');
@@ -76,14 +76,14 @@
         nextFrame
             .addClass('next')
             .css('left', '100%')
-            .stop(true)
+            .stop(true,true)
             .animate({left: 0}, 400)
             .siblings()
             .removeClass('next');
 
         currentFrame
             .addClass('active')
-            .stop(true)
+            .stop(true,true)
             .css('left', '')
             .animate({left: "-100%"}, 400)
             .siblings()
@@ -98,6 +98,7 @@
 
     //cycle
     Carousel.prototype.cycle = function() {
+    	this.pause();
         var self = this;
         this.interval = setInterval(function() {
             self.next();
@@ -113,7 +114,7 @@
     Carousel.prototype.addEvents = function() {
         var self = this;
         //navigator point Event
-        this.$nav.on('mouseover', function() {
+        this.$nav.on('mouseenter', function() {
             self.pause();
             var current = self.indicator; //record the current
             if (self.indicator > $(this).index()) {
@@ -128,7 +129,7 @@
         })
 
         //focus screen Event
-        this.$element.on('mouseover', function() {
+        this.$element.on('mouseenter', function() {
             self.pause();
         }).on('mouseleave', function() {
             self.cycle();
