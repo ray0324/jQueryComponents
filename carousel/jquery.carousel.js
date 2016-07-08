@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: RAY (ray0324@fomxial.com)
  * @Date:   2014-09-03 20:47:03
  * @Last Modified by:   RAY
@@ -14,7 +14,7 @@
         this.indicator = 0;
         this.interval = null;
         this.$li = $element.children('.s-body').find('li');
-        this.$nav = $element.children('.s-nav').find('li');
+        this.$nav = $element.children('.s-nav').find('span');
         this.totalLength = this.$li.size(); //item length
         this.init();
     }
@@ -42,13 +42,13 @@
         	.removeClass('next');
         prevFrame
 	        .addClass('prev')
-	        .stop(true,true).animate({left: 0}, 400)
+	        .stop(true).animate({left: 0}, 400)
 	        .siblings().removeClass('prev')
 	        .css('left', '');
 
         currentFrame
 	        .addClass('active')
-	        .stop(true,true)
+	        .stop(true)
 	        .animate({left: "100%"}, 400)
 	        .siblings()
 	        .removeClass('active');
@@ -65,7 +65,7 @@
         var self = this;
 
         var currentFrame = typeof current == 'undefined' ? self.$li.eq(self.indicator) : self.$li.eq(current);
-        //next Frame        
+        //next Frame
         self.indicator++;
         if (self.indicator > self.totalLength - 1) {
             self.indicator = 0;
@@ -76,14 +76,14 @@
         nextFrame
             .addClass('next')
             .css('left', '100%')
-            .stop(true,true)
+            .stop(true)
             .animate({left: 0}, 400)
             .siblings()
             .removeClass('next');
 
         currentFrame
             .addClass('active')
-            .stop(true,true)
+            .stop(true)
             .css('left', '')
             .animate({left: "-100%"}, 400)
             .siblings()
@@ -98,7 +98,6 @@
 
     //cycle
     Carousel.prototype.cycle = function() {
-    	this.pause();
         var self = this;
         this.interval = setInterval(function() {
             self.next();
@@ -114,7 +113,7 @@
     Carousel.prototype.addEvents = function() {
         var self = this;
         //navigator point Event
-        this.$nav.on('mouseenter', function() {
+        this.$nav.on('mouseover', function() {
             self.pause();
             var current = self.indicator; //record the current
             if (self.indicator > $(this).index()) {
@@ -129,7 +128,7 @@
         })
 
         //focus screen Event
-        this.$element.on('mouseenter', function() {
+        this.$element.on('mouseover', function() {
             self.pause();
         }).on('mouseleave', function() {
             self.cycle();
